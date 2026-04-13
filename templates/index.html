@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>First Standard Bank</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 40px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+        }
+        .button-group {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            margin: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #764ba2;
+        }
+        .accounts-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .accounts-table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        .accounts-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .accounts-table tr:hover {
+            background: #f5f5f5;
+        }
+        .accounts-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏦 First Standard Bank</h1>
+        <div class="button-group">
+            <a href="{{ url_for('create_account') }}" class="btn">Create Account</a>
+        </div>
+        
+        <h2 style="color: #333; margin-top: 30px;">All Accounts</h2>
+        {% if accounts %}
+        <table class="accounts-table">
+            <thead>
+                <tr>
+                    <th>Account Number</th>
+                    <th>Owner</th>
+                    <th>Balance</th>
+                    <th>Created</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for account in accounts %}
+                <tr>
+                    <td><code>{{ account.account_number }}</code></td>
+                    <td>{{ account.owner }}</td>
+                    <td>${{ "%.2f"|format(account.balance) }}</td>
+                    <td>{{ account.created_at }}</td>
+                    <td><a href="{{ url_for('view_account', account_number=account.account_number) }}">View</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p style="text-align: center; color: #999; margin-top: 20px;">No accounts yet. <a href="{{ url_for('create_account') }}">Create one</a></p>
+        {% endif %}
+    </div>
+</body>
+</html>
