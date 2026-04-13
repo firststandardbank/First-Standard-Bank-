@@ -22,6 +22,32 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             padding: 40px;
         }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+        .user-info {
+            color: #666;
+            font-size: 14px;
+        }
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .logout-btn:hover {
+            background: #c82333;
+        }
         h1 {
             color: #333;
             margin-bottom: 10px;
@@ -154,7 +180,13 @@
 </head>
 <body>
     <div class="container">
-        <a href="{{ url_for('index') }}" class="back-link">← Back to Home</a>
+        <div class="header">
+            <a href="{{ url_for('index') }}" class="back-link">← Back to Home</a>
+            <div style="text-align: right;">
+                <div class="user-info">Logged in as: <strong>{{ username }}</strong></div>
+                <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+            </div>
+        </div>
         <h1>Account Details</h1>
         
         <div class="account-info">
